@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<HTML>
+    <head>
+        <title>Weather App</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,300&family=Poppins:wght@200&display=swap">
+        <link rel="stylesheet" href="font-awesome-4.7.0\css\font-awesome.css">
+        <link rel="stylesheet" type="text/css" href="api.css">
+    </head>
+    <body>
+        <div class="container">
+            <div class="card">
+                <h2><i class="fa fa-map-marker" aria-hidden="true"></i><span id="location"></span></h2>
+                <h6 id="weather"></h6>
+                <h4><span id="temp"></span><sup>o</sup>C</h4>
+                <img src="" id="icon">
+                <button onclick="window.locaion.reload()" class="refresh"><i class="fa fa-refresh" ></i></button>
+            </div>
+        </div>
+    </body>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        link = "https://api.openweathermap.org/data/2.5/weather?q=mumbai&appid=71c87f648c547227af658d536b9d98fb";
+        var request = new XMLHttpRequest();
+        request.open('GET',link,true);
+        request.onload = function(){
+            var obj = JSON.parse(this.response);
+            console.log(obj);
+            document.getElementById('weather').innerHTML = obj.weather[0].description;
+            document.getElementById('location').innerHTML = obj.name;
+            document.getElementById('temp').innerHTML = Math.round(obj.main.temp - 273.15);
+            document.getElementById('icon').src = "https://openweathermap.org/img/w/" + obj.weather[0].icon + ".png";
+        }
+        if(request.status >= 200 && request.status < 400){
+            var temp = obj.main.temp;
+        }
+        else{
+            console.log("The City data is not available");
+        }
+        request.send();
+    </script>
+</HTML>
+
